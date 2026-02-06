@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import alresiaLogo from "@/assets/alresia-logo.jpeg";
 
 export default function Login() {
   const { toast } = useToast();
@@ -37,10 +38,8 @@ export default function Login() {
         <div className="w-full max-w-md px-4">
           <div className="text-center mb-8">
             <Link to="/" className="inline-flex items-center gap-2 mb-8">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">D</span>
-              </div>
-              <span className="font-semibold text-xl">DevForge</span>
+              <img src={alresiaLogo} alt="Alresia Technologies" className="w-10 h-10 rounded-lg object-contain" />
+              <span className="font-semibold text-xl">Alresia</span>
             </Link>
             <h1 className="text-2xl font-bold mb-2">Welcome back</h1>
             <p className="text-muted-foreground">

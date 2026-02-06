@@ -13,6 +13,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useState } from "react";
+import alresiaLogo from "@/assets/alresia-logo.jpeg";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -45,10 +46,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               {isSidebarOpen ? <X /> : <Menu />}
             </Button>
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold">D</span>
-              </div>
-              <span className="font-semibold hidden sm:block">DevForge</span>
+              <img src={alresiaLogo} alt="Alresia" className="w-8 h-8 rounded-lg object-contain" />
+              <span className="font-semibold hidden sm:block">Alresia</span>
             </Link>
           </div>
 

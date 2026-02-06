@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Github, Twitter, Linkedin, Mail } from "lucide-react";
+import alresiaLogo from "@/assets/alresia-logo.jpeg";
 
 const footerLinks = {
   company: [
@@ -26,7 +27,7 @@ const socialLinks = [
   { name: "GitHub", icon: Github, href: "https://github.com" },
   { name: "Twitter", icon: Twitter, href: "https://twitter.com" },
   { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com" },
-  { name: "Email", icon: Mail, href: "mailto:hello@devforge.com" },
+  { name: "Email", icon: Mail, href: "mailto:hello@alresia.com" },
 ];
 
 export function Footer() {
@@ -37,14 +38,12 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">D</span>
-              </div>
-              <span className="font-semibold text-xl">DevForge</span>
+              <img src={alresiaLogo} alt="Alresia Technologies" className="w-10 h-10 rounded-lg object-contain bg-secondary-foreground/10" />
+              <span className="font-semibold text-xl">Alresia</span>
             </Link>
             <p className="text-secondary-foreground/70 mb-6 max-w-sm">
-              Building exceptional digital experiences. From concept to deployment, 
-              we craft software that drives business growth.
+              Engineering Intelligence. Inspiring Creativity. Building the Future.
+              We craft software that drives business growth.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social) => (
@@ -115,7 +114,7 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-secondary-foreground/50 text-sm">
-            © {new Date().getFullYear()} DevForge. All rights reserved.
+            © {new Date().getFullYear()} Alresia Technologies. All rights reserved.
           </p>
           <div className="flex gap-6">
             <Link

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Moon, Sun } from "lucide-react";
+import alresiaLogo from "@/assets/alresia-logo.jpeg";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -41,10 +42,8 @@ export function Header() {
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-xl">D</span>
-          </div>
-          <span className="font-semibold text-xl text-foreground">DevForge</span>
+          <img src={alresiaLogo} alt="Alresia Technologies" className="w-10 h-10 rounded-lg object-contain" />
+          <span className="font-semibold text-xl text-foreground">Alresia</span>
         </Link>
 
         {/* Desktop Navigation */}
