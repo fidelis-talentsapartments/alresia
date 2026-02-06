@@ -64,7 +64,7 @@ export default function About() {
               <span className="text-gradient">Builders & Dreamers</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Founded in 2020, DevForge has helped 50+ companies transform their 
+              Founded in 2020, Alresia Technologies has helped 50+ companies transform their 
               ideas into scalable digital products. We combine technical excellence 
               with a deep understanding of business needs.
             </p>
@@ -80,7 +80,7 @@ export default function About() {
               <h2 className="text-3xl font-bold mb-6">Our Story</h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  DevForge was born from a simple frustration: why is working with 
+                  Alresia Technologies was born from a simple frustration: why is working with 
                   development agencies so opaque? Missed deadlines, unclear progress, 
                   and scope creep were the norm.
                 </p>
@@ -147,7 +147,7 @@ export default function About() {
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet the Team</h2>
             <p className="text-muted-foreground">
-              The talented people behind DevForge
+              The talented people behind Alresia Technologies
             </p>
           </div>
 

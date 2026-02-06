@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 const testimonials = [
   {
     id: 1,
-    content: "DevForge transformed our vision into reality. Their AI-powered planning saved us months of back-and-forth. The project dashboard kept us informed every step of the way.",
+    content: "Alresia transformed our vision into reality. Their AI-powered planning saved us months of back-and-forth. The project dashboard kept us informed every step of the way.",
     author: "Sarah Chen",
     role: "CEO, TechStart Inc.",
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
@@ -19,7 +19,7 @@ const testimonials = [
   },
   {
     id: 3,
-    content: "We've worked with many agencies, but DevForge's combination of technical excellence and client communication is exceptional. Our platform scaled to 1M users seamlessly.",
+    content: "We've worked with many agencies, but Alresia's combination of technical excellence and client communication is exceptional. Our platform scaled to 1M users seamlessly.",
     author: "Emily Johnson",
     role: "Product Director, HealthPlus",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
@@ -40,7 +40,7 @@ export function TestimonialsSection() {
             Trusted by Industry Leaders
           </h2>
           <p className="text-muted-foreground">
-            See what our clients say about working with DevForge
+            See what our clients say about working with Alresia
           </p>
         </div>
 
