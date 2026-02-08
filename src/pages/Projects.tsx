@@ -4,72 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
-
-const categories = ["All", "Web", "Mobile", "AI", "Design"];
-
-const projects = [
-  {
-    id: 1,
-    title: "FinTech Dashboard",
-    category: "Web",
-    description: "A comprehensive financial management platform with real-time analytics and AI-powered insights for enterprise clients.",
-    tags: ["React", "Node.js", "PostgreSQL", "AI"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop",
-    featured: true,
-    client: "Fortune 500 Bank",
-    year: "2024",
-  },
-  {
-    id: 2,
-    title: "HealthCare Mobile App",
-    category: "Mobile",
-    description: "Patient management and telemedicine platform serving 100k+ users daily with HIPAA compliance.",
-    tags: ["React Native", "Firebase", "HIPAA"],
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop",
-    client: "HealthPlus",
-    year: "2024",
-  },
-  {
-    id: 3,
-    title: "E-Commerce Platform",
-    category: "Web",
-    description: "Scalable marketplace with 50+ integrated payment methods and global shipping capabilities.",
-    tags: ["Next.js", "Stripe", "AWS"],
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop",
-    client: "RetailMax",
-    year: "2023",
-  },
-  {
-    id: 4,
-    title: "AI Customer Service Bot",
-    category: "AI",
-    description: "Intelligent chatbot handling 80% of customer inquiries with natural language understanding.",
-    tags: ["Python", "GPT-4", "LangChain"],
-    image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800&auto=format&fit=crop",
-    client: "TelecomGiant",
-    year: "2024",
-  },
-  {
-    id: 5,
-    title: "SaaS Analytics Dashboard",
-    category: "Design",
-    description: "Complete design system and UI overhaul for a B2B analytics platform, improving UX metrics by 40%.",
-    tags: ["Figma", "Design System", "React"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop",
-    client: "DataInsights",
-    year: "2023",
-  },
-  {
-    id: 6,
-    title: "Logistics Tracking App",
-    category: "Mobile",
-    description: "Real-time fleet tracking and delivery management for a national logistics company.",
-    tags: ["Flutter", "Google Maps", "IoT"],
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&auto=format&fit=crop",
-    client: "FastShip",
-    year: "2023",
-  },
-];
+import { projects, categories } from "@/data/projects";
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
