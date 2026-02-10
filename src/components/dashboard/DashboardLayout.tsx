@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -11,15 +11,29 @@ import {
   Menu,
   X,
   ChevronDown,
+  Users,
+  FileText,
+  Shield,
+  Wallet,
 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 import alresiaLogo from "@/assets/alresia-logo.jpeg";
 
-const navigation = [
+const clientNavigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Projects", href: "/dashboard/projects", icon: FolderKanban },
   { name: "Payments", href: "/dashboard/payments", icon: CreditCard },
-  { name: "Notifications", href: "/dashboard/notifications", icon: Bell, badge: 3 },
+  { name: "Settings", href: "/dashboard/settings", icon: Settings },
+];
+
+const adminNavigation = [
+  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Projects", href: "/dashboard/projects", icon: FolderKanban },
+  { name: "Clients", href: "/dashboard/clients", icon: Users },
+  { name: "Requests", href: "/dashboard/requests", icon: FileText },
+  { name: "Staff & Roles", href: "/dashboard/staff", icon: Shield },
+  { name: "Payment Plans", href: "/dashboard/payment-plans", icon: Wallet },
   { name: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
@@ -29,7 +43,20 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { profile, isAdmin, isStaff, signOut, roles } = useAuth();
+
+  const navigation = (isAdmin || isStaff) ? adminNavigation : clientNavigation;
+  const initials = profile?.full_name
+    ? profile.full_name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2)
+    : "?";
+  const roleLabel = isAdmin ? "Admin" : isStaff ? "Staff" : "Client";
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -52,19 +79,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-primary-foreground text-xs rounded-full flex items-center justify-center">
-                3
-              </span>
-            </Button>
             <div className="flex items-center gap-2 cursor-pointer">
               <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                <span className="text-primary font-medium text-sm">JD</span>
+                <span className="text-primary font-medium text-sm">{initials}</span>
               </div>
               <div className="hidden md:block">
-                <div className="text-sm font-medium">John Doe</div>
-                <div className="text-xs text-muted-foreground">Client</div>
+                <div className="text-sm font-medium">{profile?.full_name || "User"}</div>
+                <div className="text-xs text-muted-foreground">{roleLabel}</div>
               </div>
               <ChevronDown className="w-4 h-4 text-muted-foreground hidden md:block" />
             </div>
@@ -94,21 +115,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               >
                 <item.icon className="w-5 h-5" />
                 <span className="font-medium">{item.name}</span>
-                {item.badge && (
-                  <Badge
-                    variant={isActive ? "secondary" : "default"}
-                    className="ml-auto"
-                  >
-                    {item.badge}
-                  </Badge>
-                )}
               </Link>
             );
           })}
         </nav>
 
         <div className="absolute bottom-4 left-4 right-4">
-          <Button variant="ghost" className="w-full justify-start text-muted-foreground">
+          <Button variant="ghost" className="w-full justify-start text-muted-foreground" onClick={handleSignOut}>
             <LogOut className="w-5 h-5 mr-3" />
             Sign Out
           </Button>
