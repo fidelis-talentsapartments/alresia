@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -29,38 +30,39 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:id" element={<ProjectDetails />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/request-project" element={<RequestProject />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route path="/dashboard/projects" element={<ProtectedRoute><DashboardProjectsRouter /></ProtectedRoute>} />
-            <Route path="/dashboard/payments" element={<ProtectedRoute><ClientPayments /></ProtectedRoute>} />
-            <Route path="/dashboard/clients" element={<ProtectedRoute requiredRole="admin"><AdminClients /></ProtectedRoute>} />
-            <Route path="/dashboard/requests" element={<ProtectedRoute requiredRole="admin"><AdminRequests /></ProtectedRoute>} />
-            <Route path="/dashboard/staff" element={<ProtectedRoute requiredRole="admin"><AdminStaff /></ProtectedRoute>} />
-            <Route path="/dashboard/payment-plans" element={<ProtectedRoute requiredRole="admin"><AdminPaymentPlans /></ProtectedRoute>} />
-            <Route path="/dashboard/settings" element={<ProtectedRoute><DashboardSettings /></ProtectedRoute>} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider defaultTheme="dark" attribute="class" enableSystem disableTransitionOnChange>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:id" element={<ProjectDetails />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/request-project" element={<RequestProject />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/dashboard/projects" element={<ProtectedRoute><DashboardProjectsRouter /></ProtectedRoute>} />
+              <Route path="/dashboard/payments" element={<ProtectedRoute><ClientPayments /></ProtectedRoute>} />
+              <Route path="/dashboard/clients" element={<ProtectedRoute requiredRole="admin"><AdminClients /></ProtectedRoute>} />
+              <Route path="/dashboard/requests" element={<ProtectedRoute requiredRole="admin"><AdminRequests /></ProtectedRoute>} />
+              <Route path="/dashboard/staff" element={<ProtectedRoute requiredRole="admin"><AdminStaff /></ProtectedRoute>} />
+              <Route path="/dashboard/payment-plans" element={<ProtectedRoute requiredRole="admin"><AdminPaymentPlans /></ProtectedRoute>} />
+              <Route path="/dashboard/settings" element={<ProtectedRoute><DashboardSettings /></ProtectedRoute>} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
-
 // Routes projects page based on role
 function DashboardProjectsRouter() {
   return <DashboardProjectsInner />;
