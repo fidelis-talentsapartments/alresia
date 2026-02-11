@@ -15,6 +15,8 @@ import {
   CheckCircle2,
   AlertCircle,
   FileText,
+  Sparkles,
+  Plus,
 } from "lucide-react";
 
 export default function ClientDashboard() {
@@ -40,47 +42,67 @@ export default function ClientDashboard() {
   return (
     <DashboardLayout>
       <div className="space-y-8">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold">Dashboard</h1>
-            <p className="text-muted-foreground">
-              Welcome back{profile?.full_name ? `, ${profile.full_name}` : ""}! Here's your project overview.
-            </p>
+        {/* Welcome Banner */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-chart-1/5 to-chart-2/5 border border-primary/10 p-6 lg:p-8">
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-5 h-5 text-primary" />
+                <span className="text-sm font-medium text-primary">Client Portal</span>
+              </div>
+              <h1 className="text-2xl lg:text-3xl font-bold tracking-tight">
+                Welcome back, {profile?.full_name?.split(" ")[0] || "there"} 👋
+              </h1>
+              <p className="text-muted-foreground mt-1">
+                Track your projects, payments, and deliverables all in one place.
+              </p>
+            </div>
+            <Link to="/request-project">
+              <Button variant="hero" className="group rounded-xl">
+                <Plus className="w-4 h-4" />
+                New Project
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
           </div>
-          <Link to="/request-project">
-            <Button variant="hero" className="group">
-              New Project
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </Link>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-chart-1/5 rounded-full translate-y-1/2 -translate-x-1/4 blur-3xl" />
         </div>
 
         <DashboardStats stats={stats} />
 
         <div className="grid lg:grid-cols-3 gap-6">
-          <Card className="lg:col-span-2">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div>
-                <CardTitle>Active Projects</CardTitle>
-                <CardDescription>Your ongoing project deliveries</CardDescription>
+          <Card className="lg:col-span-2 border-border/50 overflow-hidden">
+            <CardHeader className="flex flex-row items-center justify-between bg-accent/30 border-b border-border/30 py-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-primary/10 ring-1 ring-primary/20 flex items-center justify-center">
+                  <FolderKanban className="w-4 h-4 text-primary" />
+                </div>
+                <div>
+                  <CardTitle className="text-base">Active Projects</CardTitle>
+                  <CardDescription className="text-xs">Your ongoing project deliveries</CardDescription>
+                </div>
               </div>
               <Link to="/dashboard/projects">
-                <Button variant="ghost" size="sm">View All</Button>
+                <Button variant="ghost" size="sm" className="rounded-lg text-xs">View All →</Button>
               </Link>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4">
               {projectsLoading ? (
-                <div className="text-muted-foreground text-sm">Loading projects...</div>
+                <div className="text-muted-foreground text-sm py-8 text-center">Loading projects...</div>
               ) : activeProjects.length === 0 ? (
-                <div className="text-center py-8">
-                  <FolderKanban className="w-12 h-12 mx-auto text-muted-foreground/30 mb-3" />
-                  <p className="text-muted-foreground">No active projects yet</p>
+                <div className="text-center py-10">
+                  <div className="w-14 h-14 rounded-2xl bg-accent/50 flex items-center justify-center mx-auto mb-3">
+                    <FolderKanban className="w-7 h-7 text-muted-foreground/40" />
+                  </div>
+                  <p className="text-muted-foreground font-medium text-sm">No active projects yet</p>
+                  <p className="text-muted-foreground/60 text-xs mt-1 mb-4">Get started by requesting your first project</p>
                   <Link to="/request-project">
-                    <Button variant="outline" size="sm" className="mt-3">Request a Project</Button>
+                    <Button variant="outline" size="sm" className="rounded-xl">Request a Project</Button>
                   </Link>
                 </div>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-2">
                   {activeProjects.slice(0, 5).map((project) => {
                     const phases = project.project_phases || [];
                     const completed = phases.filter((p: any) => p.status === "completed").length;
@@ -88,36 +110,40 @@ export default function ClientDashboard() {
                     const currentPhase = phases.find((p: any) => p.status === "in_progress");
 
                     return (
-                      <div key={project.id} className="space-y-3">
+                      <div key={project.id} className="group p-4 rounded-xl hover:bg-accent/40 transition-colors space-y-3">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <div className="font-medium">{project.name}</div>
-                            <Badge variant={project.status === "in_progress" ? "default" : "secondary"} className="capitalize">
-                              {project.status === "in_progress" ? (
-                                <Clock className="w-3 h-3 mr-1" />
-                              ) : (
-                                <AlertCircle className="w-3 h-3 mr-1" />
+                            <div className="w-10 h-10 rounded-xl bg-accent/60 flex items-center justify-center flex-shrink-0">
+                              <FolderKanban className="w-4 h-4 text-muted-foreground" />
+                            </div>
+                            <div>
+                              <div className="font-medium text-sm">{project.name}</div>
+                              {currentPhase && (
+                                <div className="text-xs text-muted-foreground/60 mt-0.5">
+                                  Current: {currentPhase.name}
+                                </div>
                               )}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Badge variant={project.status === "in_progress" ? "default" : "secondary"} className="capitalize text-[10px] h-5 rounded-md">
                               {project.status?.replace("_", " ")}
                             </Badge>
+                            {project.due_date && (
+                              <span className="text-[11px] text-muted-foreground/50 hidden md:block">
+                                Due {new Date(project.due_date).toLocaleDateString()}
+                              </span>
+                            )}
                           </div>
-                          {project.due_date && (
-                            <span className="text-sm text-muted-foreground">
-                              Due {new Date(project.due_date).toLocaleDateString()}
-                            </span>
-                          )}
                         </div>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3 pl-[52px]">
                           <div className="flex-1">
-                            <Progress value={progress} className="h-2" />
+                            <div className="h-1.5 bg-accent rounded-full overflow-hidden">
+                              <div className="h-full bg-primary rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+                            </div>
                           </div>
-                          <span className="text-sm font-medium w-12">{progress}%</span>
+                          <span className="text-xs font-semibold tabular-nums w-10 text-right">{progress}%</span>
                         </div>
-                        {currentPhase && (
-                          <div className="text-sm text-muted-foreground">
-                            Current phase: {currentPhase.name}
-                          </div>
-                        )}
                       </div>
                     );
                   })}
@@ -126,30 +152,40 @@ export default function ClientDashboard() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Pending Invoices</CardTitle>
-              <CardDescription>Payments awaiting action</CardDescription>
+          <Card className="border-border/50 overflow-hidden">
+            <CardHeader className="bg-accent/30 border-b border-border/30 py-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-chart-1/10 ring-1 ring-chart-1/20 flex items-center justify-center">
+                  <DollarSign className="w-4 h-4 text-chart-1" />
+                </div>
+                <div>
+                  <CardTitle className="text-base">Pending Invoices</CardTitle>
+                  <CardDescription className="text-xs">Payments awaiting action</CardDescription>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4">
               {pendingInvoices.length === 0 ? (
-                <div className="text-center py-8">
-                  <DollarSign className="w-12 h-12 mx-auto text-muted-foreground/30 mb-3" />
-                  <p className="text-muted-foreground text-sm">No pending invoices</p>
+                <div className="text-center py-10">
+                  <div className="w-14 h-14 rounded-2xl bg-accent/50 flex items-center justify-center mx-auto mb-3">
+                    <DollarSign className="w-7 h-7 text-muted-foreground/40" />
+                  </div>
+                  <p className="text-muted-foreground text-sm font-medium">No pending invoices</p>
+                  <p className="text-muted-foreground/60 text-xs mt-1">You're all caught up!</p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-2">
                   {pendingInvoices.slice(0, 5).map((invoice) => (
-                    <div key={invoice.id} className="flex items-center justify-between pb-4 border-b border-border last:border-0 last:pb-0">
+                    <div key={invoice.id} className="flex items-center justify-between p-3 rounded-xl hover:bg-accent/40 transition-colors">
                       <div>
                         <p className="text-sm font-medium">{invoice.label || "Invoice"}</p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="text-[11px] text-muted-foreground/60">
                           Due {invoice.due_date ? new Date(invoice.due_date).toLocaleDateString() : "N/A"}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">${Number(invoice.amount).toLocaleString()}</p>
-                        <Badge variant={invoice.status === "overdue" ? "destructive" : "secondary"} className="text-xs capitalize">
+                        <p className="font-bold text-sm">${Number(invoice.amount).toLocaleString()}</p>
+                        <Badge variant={invoice.status === "overdue" ? "destructive" : "secondary"} className="text-[10px] h-5 rounded-md capitalize">
                           {invoice.status}
                         </Badge>
                       </div>
