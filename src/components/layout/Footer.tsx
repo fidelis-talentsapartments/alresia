@@ -21,7 +21,6 @@ const footerLinks = {
     { name: "About", href: "/about" },
     { name: "Projects", href: "/projects" },
     { name: "Contact", href: "/contact" },
-    { name: "Careers", href: "/careers" },
   ],
 };
 
@@ -35,29 +34,27 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-secondary text-secondary-foreground relative overflow-hidden">
-      <div className="absolute inset-0 grid-pattern opacity-30" />
-
-      <div className="container mx-auto px-4 py-16 relative z-10">
+    <footer className="bg-card border-t border-border/40">
+      <div className="container mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src={alresiaLogo} alt="Alresia Technologies" className="w-10 h-10 rounded-lg object-contain bg-secondary-foreground/10" />
-              <span className="font-bold text-xl">Alresia</span>
+            <Link to="/" className="flex items-center gap-2.5 mb-5">
+              <img src={alresiaLogo} alt="Alresia" className="w-9 h-9 rounded-xl object-contain" />
+              <span className="font-bold text-lg">Alresia</span>
             </Link>
-            <p className="text-secondary-foreground/50 mb-6 max-w-sm text-sm leading-relaxed">
-              Engineering Intelligence. Inspiring Creativity.
-              A full-spectrum technology & creative studio building the future.
+            <p className="text-muted-foreground mb-6 max-w-sm text-sm leading-relaxed">
+              A full-spectrum technology & creative studio crafting digital
+              experiences that move people.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-2">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-secondary-foreground/5 border border-secondary-foreground/10 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-primary-foreground transition-all"
+                  className="w-9 h-9 rounded-xl bg-accent/60 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                 >
                   <social.icon className="w-4 h-4" />
                 </a>
@@ -65,16 +62,13 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Development Links */}
+          {/* Links */}
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-widest text-secondary-foreground/40 mb-4">Development</h4>
+            <h4 className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Development</h4>
             <ul className="space-y-2.5">
               {footerLinks.development.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-secondary-foreground/60 hover:text-primary transition-colors text-sm"
-                  >
+                  <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
                     {link.name}
                   </Link>
                 </li>
@@ -82,16 +76,12 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Creative Links */}
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-widest text-secondary-foreground/40 mb-4">Creative</h4>
+            <h4 className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Creative</h4>
             <ul className="space-y-2.5">
               {footerLinks.creative.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-secondary-foreground/60 hover:text-primary transition-colors text-sm"
-                  >
+                  <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
                     {link.name}
                   </Link>
                 </li>
@@ -99,16 +89,12 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company Links */}
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-widest text-secondary-foreground/40 mb-4">Company</h4>
+            <h4 className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Company</h4>
             <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-secondary-foreground/60 hover:text-primary transition-colors text-sm"
-                  >
+                  <Link to={link.href} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
                     {link.name}
                   </Link>
                 </li>
@@ -117,25 +103,15 @@ export function Footer() {
           </div>
         </div>
 
-        <hr className="border-secondary-foreground/10 my-8" />
+        <hr className="border-border/40 my-10" />
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-secondary-foreground/30 text-xs font-mono">
+          <p className="text-muted-foreground text-xs">
             © {new Date().getFullYear()} Alresia Technologies. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <Link
-              to="/privacy"
-              className="text-secondary-foreground/30 text-xs font-mono hover:text-primary transition-colors"
-            >
-              Privacy
-            </Link>
-            <Link
-              to="/terms"
-              className="text-secondary-foreground/30 text-xs font-mono hover:text-primary transition-colors"
-            >
-              Terms
-            </Link>
+            <Link to="/privacy" className="text-muted-foreground text-xs hover:text-foreground transition-colors">Privacy</Link>
+            <Link to="/terms" className="text-muted-foreground text-xs hover:text-foreground transition-colors">Terms</Link>
           </div>
         </div>
       </div>

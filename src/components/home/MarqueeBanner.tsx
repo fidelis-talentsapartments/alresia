@@ -1,16 +1,6 @@
 import {
-  Globe,
-  Smartphone,
-  Brain,
-  Palette,
-  Video,
-  Music,
-  Camera,
-  Brush,
-  Megaphone,
-  Server,
-  Shield,
-  Code,
+  Globe, Smartphone, Brain, Palette, Video, Music,
+  Camera, Brush, Megaphone, Server, Shield, Code,
 } from "lucide-react";
 
 const items = [
@@ -30,17 +20,18 @@ const items = [
 
 export function MarqueeBanner() {
   return (
-    <section className="py-8 border-y border-border/50 overflow-hidden bg-card/50">
+    <section className="py-6 border-y border-border/40 overflow-hidden">
       <div className="marquee">
         {[0, 1].map((copy) => (
           <div key={copy} className="marquee-content" aria-hidden={copy === 1}>
             {items.map((item, i) => (
               <div
                 key={`${copy}-${i}`}
-                className="flex items-center gap-3 px-6 py-2 rounded-full border border-border/50 bg-background/50 whitespace-nowrap hover:border-primary/50 hover:bg-primary/5 transition-colors cursor-default"
+                className="flex items-center gap-2.5 px-5 py-2 whitespace-nowrap"
               >
-                <item.icon className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-foreground/80">{item.label}</span>
+                <item.icon className="w-4 h-4 text-primary/70" />
+                <span className="text-sm font-medium text-muted-foreground">{item.label}</span>
+                <span className="text-border/80 ml-4">·</span>
               </div>
             ))}
           </div>

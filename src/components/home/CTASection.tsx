@@ -1,57 +1,47 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Terminal } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function CTASection() {
   return (
     <section className="py-32 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-secondary -z-10" />
-      <div className="absolute inset-0 grid-pattern -z-10" />
-      <div className="orb orb-1" style={{ opacity: 0.1 }} />
-      <div className="orb orb-3" style={{ opacity: 0.08 }} />
+      {/* Warm gradient bg */}
+      <div className="absolute inset-0 bg-foreground -z-10" />
+      <div className="absolute top-0 right-0 w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px] -z-10" />
 
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Terminal prompt */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-secondary-foreground/10 bg-secondary-foreground/5 mb-8">
-            <Terminal className="w-4 h-4 text-primary" />
-            <span className="text-sm font-mono text-secondary-foreground/70">
-              Ready to ship something extraordinary?
-            </span>
-          </div>
+      <div className="container mx-auto px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-primary font-medium text-sm uppercase tracking-widest mb-6">
+            Let's collaborate
+          </p>
 
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-secondary-foreground mb-6 tracking-tighter">
-            Let's Build{" "}
-            <span className="text-gradient">Together.</span>
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-background mb-8 leading-[1.1]">
+            Ready to build
+            <br />
+            something <span className="italic">extraordinary?</span>
           </h2>
 
-          <p className="text-lg text-secondary-foreground/60 mb-10 max-w-xl mx-auto">
-            Get a free project consultation and AI-generated scope document.
-            No obligations, just insights.
+          <p className="text-lg text-background/50 mb-12 max-w-lg mx-auto leading-relaxed">
+            Get a free project consultation. No obligations, just insights
+            into how we can bring your vision to life.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/request-project">
-              <Button variant="hero" size="xl" className="group">
-                Request a Project
+              <Button size="xl" className="group rounded-full px-10 bg-primary text-primary-foreground hover:bg-primary/90">
+                Start your project
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
             <Link to="/contact">
               <Button
-                variant="glass"
+                variant="outline"
                 size="xl"
-                className="border-secondary-foreground/10 text-secondary-foreground hover:bg-secondary-foreground/10"
+                className="rounded-full px-10 border-background/20 text-background hover:bg-background/10"
               >
-                Schedule a Call
+                Schedule a call
               </Button>
             </Link>
-          </div>
-
-          {/* Bottom code line */}
-          <div className="mt-16 font-mono text-sm text-secondary-foreground/30">
-            <span className="text-primary/50">$</span> alresia start --your-vision --our-expertise
           </div>
         </div>
       </div>
