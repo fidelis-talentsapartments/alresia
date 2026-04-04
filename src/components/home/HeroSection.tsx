@@ -1,7 +1,7 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Terminal } from "lucide-react";
-import { useTypewriter } from "@/hooks/useTypewriter";
 
 const codeLines = [
   '$ alresia init --project "your-vision"',
@@ -10,8 +10,47 @@ const codeLines = [
   "✓ Project live at alresia.com",
 ];
 
+function useTerminalLines(lines: string[], charSpeed = 30, lineDelay = 800) {
+  const [visibleLines, setVisibleLines] = useState<string[]>([]);
+  const [currentLine, setCurrentLine] = useState(0);
+  const [currentChar, setCurrentChar] = useState(0);
+
+  useEffect(() => {
+    if (currentLine >= lines.length) return;
+
+    if (currentChar === 0 && currentLine > 0) {
+      const timeout = setTimeout(() => setCurrentChar(1), lineDelay);
+      return () => clearTimeout(timeout);
+    }
+
+    const fullLine = lines[currentLine];
+    if (currentChar <= fullLine.length) {
+      const timeout = setTimeout(() => {
+        setVisibleLines((prev) => {
+          const copy = [...prev];
+          copy[currentLine] = fullLine.substring(0, currentChar);
+          return copy;
+        });
+        if (currentChar === fullLine.length) {
+          setCurrentLine((l) => l + 1);
+          setCurrentChar(0);
+        } else {
+          setCurrentChar((c) => c + 1);
+        }
+      }, charSpeed);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentLine, currentChar, lines, charSpeed, lineDelay]);
+
+  useEffect(() => {
+    setVisibleLines([""]);
+  }, []);
+
+  return visibleLines;
+}
+
 export function HeroSection() {
-  const typedText = useTypewriter(codeLines, 50, 2000);
+  const typedLines = useTerminalLines(codeLines);
 
   return (
     <section className="relative min-h-[100vh] flex items-center pt-24 pb-16 overflow-hidden">
@@ -84,7 +123,7 @@ export function HeroSection() {
                 <span className="ml-2 text-xs text-muted-foreground font-mono">terminal</span>
               </div>
               <div className="p-5 font-mono text-sm leading-relaxed">
-                {typedText.map((line, i) => (
+                {typedLines.map((line, i) => (
                   <div key={i} className={`${line.startsWith("✓") ? "text-primary" : line.startsWith("→") ? "text-muted-foreground" : "text-foreground"}`}>
                     {line}
                   </div>

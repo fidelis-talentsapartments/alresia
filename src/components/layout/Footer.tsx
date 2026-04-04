@@ -40,12 +40,12 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2.5 mb-5">
-              <img src={alresiaLogo} alt="Alresia" className="w-9 h-9 rounded-xl object-contain" />
-              <span className="font-bold text-lg">Alresia</span>
+              <img src={alresiaLogo} alt="Alresia" className="w-8 h-8 rounded-lg object-contain" />
+              <span className="font-bold text-base">Alresia</span>
             </Link>
             <p className="text-muted-foreground mb-6 max-w-sm text-sm leading-relaxed">
-              A full-spectrum technology & creative studio crafting digital
-              experiences that move people.
+              A full-stack technology & creative studio building software
+              that powers the future.
             </p>
             <div className="flex gap-2">
               {socialLinks.map((social) => (
@@ -54,9 +54,9 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-xl bg-accent/60 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+                  className="w-8 h-8 rounded-lg bg-accent/60 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300"
                 >
-                  <social.icon className="w-4 h-4" />
+                  <social.icon className="w-3.5 h-3.5" />
                 </a>
               ))}
             </div>
@@ -64,7 +64,7 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Development</h4>
+            <h4 className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-mono font-medium">Development</h4>
             <ul className="space-y-2.5">
               {footerLinks.development.map((link) => (
                 <li key={link.name}>
@@ -77,7 +77,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Creative</h4>
+            <h4 className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-mono font-medium">Creative</h4>
             <ul className="space-y-2.5">
               {footerLinks.creative.map((link) => (
                 <li key={link.name}>
@@ -90,7 +90,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">Company</h4>
+            <h4 className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-mono font-medium">Company</h4>
             <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
@@ -106,7 +106,7 @@ export function Footer() {
         <hr className="border-border/40 my-10" />
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-xs">
+          <p className="text-muted-foreground text-xs font-mono">
             © {new Date().getFullYear()} Alresia Technologies. All rights reserved.
           </p>
           <div className="flex gap-6">
