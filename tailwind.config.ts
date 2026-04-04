@@ -87,7 +87,7 @@ export default {
   		},
 		fontFamily: {
 			sans: [
-				'DM Sans',
+				'Inter',
 				'ui-sans-serif',
 				'system-ui',
 				'-apple-system',
@@ -96,13 +96,12 @@ export default {
 				'Roboto',
 				'sans-serif'
 			],
-			serif: [
-				'Playfair Display',
-				'ui-serif',
-				'Georgia',
-				'Cambria',
-				'Times New Roman',
-				'serif'
+			display: [
+				'Space Grotesk',
+				'Inter',
+				'ui-sans-serif',
+				'system-ui',
+				'sans-serif'
 			],
 			mono: [
 				'JetBrains Mono',
