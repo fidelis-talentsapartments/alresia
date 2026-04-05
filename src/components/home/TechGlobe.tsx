@@ -185,12 +185,12 @@ export function TechGlobe() {
         <div className="w-[60%] h-[60%] rounded-full bg-primary/8 blur-[80px]" />
       </div>
       <Canvas
-        camera={{ position: [0, 0, 5.5], fov: 45 }}
+        camera={{ position: [0, 0, 4.8], fov: 50 }}
         style={{ cursor: "grab" }}
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
       >
-        <GlobeCore radius={1.8} />
+        <GlobeCore radius={2.0} />
       </Canvas>
     </div>
   );
