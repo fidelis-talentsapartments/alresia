@@ -54,7 +54,7 @@ export function HeroSection() {
   const typedLines = useTerminalLines(codeLines);
 
   return (
-    <section className="relative min-h-[100vh] flex items-center pt-24 pb-16 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden">
       {/* Grid pattern bg */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-[size:64px_64px]" />
@@ -63,9 +63,9 @@ export function HeroSection() {
       </div>
 
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[600px]">
           {/* Left — Content */}
-          <div className="max-w-xl">
+          <div className="max-w-xl flex flex-col justify-center">
             {/* Eyebrow */}
             <div className="flex mb-6 animate-fade-up">
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5">
@@ -150,7 +150,7 @@ export function HeroSection() {
           </div>
 
           {/* Right — Globe */}
-          <div className="hidden lg:block animate-fade-up" style={{ animationDelay: "0.2s" }}>
+          <div className="hidden lg:flex items-center justify-center animate-fade-up" style={{ animationDelay: "0.2s" }}>
             <TechGlobe />
           </div>
         </div>
