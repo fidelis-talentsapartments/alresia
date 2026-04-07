@@ -26,8 +26,32 @@ import AdminStaff from "./pages/dashboard/AdminStaff";
 import AdminPaymentPlans from "./pages/dashboard/AdminPaymentPlans";
 import DashboardSettings from "./pages/dashboard/DashboardSettings";
 import NotFound from "./pages/NotFound";
+import type { ReactNode } from "react";
 
 const queryClient = new QueryClient();
+
+function PrivateDashboardRoute({
+  path,
+  children,
+  requiredRole,
+}: {
+  path: string;
+  children: ReactNode;
+  requiredRole?: "admin";
+}) {
+  return (
+    <>
+      <Seo
+        title="Dashboard"
+        description="Private dashboard area for Alresia Technologies."
+        path={path}
+        noindex
+        nofollow
+      />
+      <ProtectedRoute requiredRole={requiredRole}>{children}</ProtectedRoute>
+    </>
+  );
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -55,128 +79,77 @@ const App = () => (
               <Route
                 path="/dashboard"
                 element={
-                  <ProtectedRoute>
+                  <PrivateDashboardRoute path="/dashboard">
                     <Dashboard />
-                  </ProtectedRoute>
+                  </PrivateDashboardRoute>
                 }
               />
               <Route
                 path="/dashboard/projects"
                 element={
-                  <>
-                    <Seo
-                      title="Dashboard"
-                      description="Private dashboard area for Alresia Technologies."
-                      path="/dashboard/projects"
-                      noindex
-                      nofollow
-                    />
-                    <ProtectedRoute>
-                      <DashboardProjectsRouter />
-                    </ProtectedRoute>
-                  </>
+                  <PrivateDashboardRoute path="/dashboard/projects">
+                    <DashboardProjectsRouter />
+                  </PrivateDashboardRoute>
                 }
               />
               <Route
                 path="/dashboard/payments"
                 element={
-                  <>
-                    <Seo
-                      title="Dashboard"
-                      description="Private dashboard area for Alresia Technologies."
-                      path="/dashboard/payments"
-                      noindex
-                      nofollow
-                    />
-                    <ProtectedRoute>
-                      <ClientPayments />
-                    </ProtectedRoute>
-                  </>
+                  <PrivateDashboardRoute path="/dashboard/payments">
+                    <ClientPayments />
+                  </PrivateDashboardRoute>
                 }
               />
               <Route
                 path="/dashboard/clients"
                 element={
-                  <>
-                    <Seo
-                      title="Dashboard"
-                      description="Private dashboard area for Alresia Technologies."
-                      path="/dashboard/clients"
-                      noindex
-                      nofollow
-                    />
-                    <ProtectedRoute requiredRole="admin">
-                      <AdminClients />
-                    </ProtectedRoute>
-                  </>
+                  <PrivateDashboardRoute
+                    path="/dashboard/clients"
+                    requiredRole="admin"
+                  >
+                    <AdminClients />
+                  </PrivateDashboardRoute>
                 }
               />
               <Route
                 path="/dashboard/requests"
                 element={
-                  <>
-                    <Seo
-                      title="Dashboard"
-                      description="Private dashboard area for Alresia Technologies."
-                      path="/dashboard/requests"
-                      noindex
-                      nofollow
-                    />
-                    <ProtectedRoute requiredRole="admin">
-                      <AdminRequests />
-                    </ProtectedRoute>
-                  </>
+                  <PrivateDashboardRoute
+                    path="/dashboard/requests"
+                    requiredRole="admin"
+                  >
+                    <AdminRequests />
+                  </PrivateDashboardRoute>
                 }
               />
               <Route
                 path="/dashboard/staff"
                 element={
-                  <>
-                    <Seo
-                      title="Dashboard"
-                      description="Private dashboard area for Alresia Technologies."
-                      path="/dashboard/staff"
-                      noindex
-                      nofollow
-                    />
-                    <ProtectedRoute requiredRole="admin">
-                      <AdminStaff />
-                    </ProtectedRoute>
-                  </>
+                  <PrivateDashboardRoute
+                    path="/dashboard/staff"
+                    requiredRole="admin"
+                  >
+                    <AdminStaff />
+                  </PrivateDashboardRoute>
                 }
               />
               <Route
                 path="/dashboard/payment-plans"
                 element={
-                  <>
-                    <Seo
-                      title="Dashboard"
-                      description="Private dashboard area for Alresia Technologies."
-                      path="/dashboard/payment-plans"
-                      noindex
-                      nofollow
-                    />
-                    <ProtectedRoute requiredRole="admin">
-                      <AdminPaymentPlans />
-                    </ProtectedRoute>
-                  </>
+                  <PrivateDashboardRoute
+                    path="/dashboard/payment-plans"
+                    requiredRole="admin"
+                  >
+                    <AdminPaymentPlans />
+                  </PrivateDashboardRoute>
                 }
               />
               <Route
                 path="/dashboard/settings"
                 element={
-                  <>
-                    <Seo
-                      title="Dashboard"
-                      description="Private dashboard area for Alresia Technologies."
-                      path="/dashboard/settings"
-                      noindex
-                      nofollow
-                    />
-                    <ProtectedRoute>
-                      <DashboardSettings />
-                    </ProtectedRoute>
-                  </>
+                  <PrivateDashboardRoute path="/dashboard/settings">
+                    <DashboardSettings />
+                  </PrivateDashboardRoute>
                 }
               />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
@@ -188,11 +161,6 @@ const App = () => (
     </ThemeProvider>
   </QueryClientProvider>
 );
-
-function DashboardProjectsInner() {
-  const { isAdmin, isStaff } = useAuth();
-  return isAdmin || isStaff ? <AdminProjects /> : <ClientProjects />;
-}
 
 // Routes projects page based on role
 function DashboardProjectsRouter() {
