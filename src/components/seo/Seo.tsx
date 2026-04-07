@@ -28,8 +28,14 @@ function toAbsoluteUrl(path: string) {
   return `${siteConfig.url.replace(/\/$/, "")}/${path.replace(/^\//, "")}`;
 }
 
-function setMeta(attribute: "name" | "property", value: string, content: string) {
-  let tag = document.head.querySelector(`meta[${attribute}="${value}"]`) as HTMLMetaElement | null;
+function setMeta(
+  attribute: "name" | "property",
+  value: string,
+  content: string,
+) {
+  let tag = document.head.querySelector(
+    `meta[${attribute}="${value}"]`,
+  ) as HTMLMetaElement | null;
 
   if (!tag) {
     tag = document.createElement("meta");
@@ -43,7 +49,9 @@ function setMeta(attribute: "name" | "property", value: string, content: string)
 }
 
 function setLink(rel: string, href: string) {
-  let tag = document.head.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement | null;
+  let tag = document.head.querySelector(
+    `link[rel="${rel}"]`,
+  ) as HTMLLinkElement | null;
 
   if (!tag) {
     tag = document.createElement("link");
@@ -126,7 +134,20 @@ export function Seo({
     return () => {
       document.title = previousTitle;
     };
-  }, [canonical, description, image, imageAlt, keywords, location.pathname, noindex, nofollow, path, structuredData, title, type]);
+  }, [
+    canonical,
+    description,
+    image,
+    imageAlt,
+    keywords,
+    location.pathname,
+    noindex,
+    nofollow,
+    path,
+    structuredData,
+    title,
+    type,
+  ]);
 
   return null;
 }

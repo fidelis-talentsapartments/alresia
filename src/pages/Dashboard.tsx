@@ -9,7 +9,13 @@ export default function Dashboard() {
   if (isAdmin || isStaff) {
     return (
       <>
-        <Seo title="Dashboard" description="Private client and admin dashboard for Alresia Technologies." path="/dashboard" noindex nofollow />
+        <Seo
+          title="Dashboard"
+          description="Private client and admin dashboard for Alresia Technologies."
+          path="/dashboard"
+          noindex
+          nofollow
+        />
         <AdminDashboard />
       </>
     );
@@ -17,7 +23,13 @@ export default function Dashboard() {
 
   return (
     <>
-      <Seo title="Dashboard" description="Private client and admin dashboard for Alresia Technologies." path="/dashboard" noindex nofollow />
+      <Seo
+        title="Dashboard"
+        description="Private client and admin dashboard for Alresia Technologies."
+        path="/dashboard"
+        noindex
+        nofollow
+      />
       <ClientDashboard />
     </>
   );

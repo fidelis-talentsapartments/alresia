@@ -31,7 +31,12 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="dark" attribute="class" enableSystem disableTransitionOnChange>
+    <ThemeProvider
+      defaultTheme="dark"
+      attribute="class"
+      enableSystem
+      disableTransitionOnChange
+    >
       <TooltipProvider>
         <Toaster />
         <Sonner />
@@ -47,13 +52,28 @@ const App = () => (
               <Route path="/request-project" element={<RequestProject />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/dashboard/projects"
                 element={
                   <>
-                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/projects" noindex nofollow />
-                    <ProtectedRoute><DashboardProjectsRouter /></ProtectedRoute>
+                    <Seo
+                      title="Dashboard"
+                      description="Private dashboard area for Alresia Technologies."
+                      path="/dashboard/projects"
+                      noindex
+                      nofollow
+                    />
+                    <ProtectedRoute>
+                      <DashboardProjectsRouter />
+                    </ProtectedRoute>
                   </>
                 }
               />
@@ -61,8 +81,16 @@ const App = () => (
                 path="/dashboard/payments"
                 element={
                   <>
-                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/payments" noindex nofollow />
-                    <ProtectedRoute><ClientPayments /></ProtectedRoute>
+                    <Seo
+                      title="Dashboard"
+                      description="Private dashboard area for Alresia Technologies."
+                      path="/dashboard/payments"
+                      noindex
+                      nofollow
+                    />
+                    <ProtectedRoute>
+                      <ClientPayments />
+                    </ProtectedRoute>
                   </>
                 }
               />
@@ -70,8 +98,16 @@ const App = () => (
                 path="/dashboard/clients"
                 element={
                   <>
-                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/clients" noindex nofollow />
-                    <ProtectedRoute requiredRole="admin"><AdminClients /></ProtectedRoute>
+                    <Seo
+                      title="Dashboard"
+                      description="Private dashboard area for Alresia Technologies."
+                      path="/dashboard/clients"
+                      noindex
+                      nofollow
+                    />
+                    <ProtectedRoute requiredRole="admin">
+                      <AdminClients />
+                    </ProtectedRoute>
                   </>
                 }
               />
@@ -79,8 +115,16 @@ const App = () => (
                 path="/dashboard/requests"
                 element={
                   <>
-                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/requests" noindex nofollow />
-                    <ProtectedRoute requiredRole="admin"><AdminRequests /></ProtectedRoute>
+                    <Seo
+                      title="Dashboard"
+                      description="Private dashboard area for Alresia Technologies."
+                      path="/dashboard/requests"
+                      noindex
+                      nofollow
+                    />
+                    <ProtectedRoute requiredRole="admin">
+                      <AdminRequests />
+                    </ProtectedRoute>
                   </>
                 }
               />
@@ -88,8 +132,16 @@ const App = () => (
                 path="/dashboard/staff"
                 element={
                   <>
-                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/staff" noindex nofollow />
-                    <ProtectedRoute requiredRole="admin"><AdminStaff /></ProtectedRoute>
+                    <Seo
+                      title="Dashboard"
+                      description="Private dashboard area for Alresia Technologies."
+                      path="/dashboard/staff"
+                      noindex
+                      nofollow
+                    />
+                    <ProtectedRoute requiredRole="admin">
+                      <AdminStaff />
+                    </ProtectedRoute>
                   </>
                 }
               />
@@ -97,8 +149,16 @@ const App = () => (
                 path="/dashboard/payment-plans"
                 element={
                   <>
-                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/payment-plans" noindex nofollow />
-                    <ProtectedRoute requiredRole="admin"><AdminPaymentPlans /></ProtectedRoute>
+                    <Seo
+                      title="Dashboard"
+                      description="Private dashboard area for Alresia Technologies."
+                      path="/dashboard/payment-plans"
+                      noindex
+                      nofollow
+                    />
+                    <ProtectedRoute requiredRole="admin">
+                      <AdminPaymentPlans />
+                    </ProtectedRoute>
                   </>
                 }
               />
@@ -106,8 +166,16 @@ const App = () => (
                 path="/dashboard/settings"
                 element={
                   <>
-                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/settings" noindex nofollow />
-                    <ProtectedRoute><DashboardSettings /></ProtectedRoute>
+                    <Seo
+                      title="Dashboard"
+                      description="Private dashboard area for Alresia Technologies."
+                      path="/dashboard/settings"
+                      noindex
+                      nofollow
+                    />
+                    <ProtectedRoute>
+                      <DashboardSettings />
+                    </ProtectedRoute>
                   </>
                 }
               />
@@ -127,7 +195,7 @@ function DashboardProjectsRouter() {
 
 function DashboardProjectsInner() {
   const { isAdmin, isStaff } = useAuth();
-  return (isAdmin || isStaff) ? <AdminProjects /> : <ClientProjects />;
+  return isAdmin || isStaff ? <AdminProjects /> : <ClientProjects />;
 }
 
 export default App;
