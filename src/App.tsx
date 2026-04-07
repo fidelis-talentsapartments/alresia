@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { Seo } from "@/components/seo/Seo";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -47,13 +48,69 @@ const App = () => (
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-              <Route path="/dashboard/projects" element={<ProtectedRoute><DashboardProjectsRouter /></ProtectedRoute>} />
-              <Route path="/dashboard/payments" element={<ProtectedRoute><ClientPayments /></ProtectedRoute>} />
-              <Route path="/dashboard/clients" element={<ProtectedRoute requiredRole="admin"><AdminClients /></ProtectedRoute>} />
-              <Route path="/dashboard/requests" element={<ProtectedRoute requiredRole="admin"><AdminRequests /></ProtectedRoute>} />
-              <Route path="/dashboard/staff" element={<ProtectedRoute requiredRole="admin"><AdminStaff /></ProtectedRoute>} />
-              <Route path="/dashboard/payment-plans" element={<ProtectedRoute requiredRole="admin"><AdminPaymentPlans /></ProtectedRoute>} />
-              <Route path="/dashboard/settings" element={<ProtectedRoute><DashboardSettings /></ProtectedRoute>} />
+              <Route
+                path="/dashboard/projects"
+                element={
+                  <>
+                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/projects" noindex nofollow />
+                    <ProtectedRoute><DashboardProjectsRouter /></ProtectedRoute>
+                  </>
+                }
+              />
+              <Route
+                path="/dashboard/payments"
+                element={
+                  <>
+                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/payments" noindex nofollow />
+                    <ProtectedRoute><ClientPayments /></ProtectedRoute>
+                  </>
+                }
+              />
+              <Route
+                path="/dashboard/clients"
+                element={
+                  <>
+                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/clients" noindex nofollow />
+                    <ProtectedRoute requiredRole="admin"><AdminClients /></ProtectedRoute>
+                  </>
+                }
+              />
+              <Route
+                path="/dashboard/requests"
+                element={
+                  <>
+                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/requests" noindex nofollow />
+                    <ProtectedRoute requiredRole="admin"><AdminRequests /></ProtectedRoute>
+                  </>
+                }
+              />
+              <Route
+                path="/dashboard/staff"
+                element={
+                  <>
+                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/staff" noindex nofollow />
+                    <ProtectedRoute requiredRole="admin"><AdminStaff /></ProtectedRoute>
+                  </>
+                }
+              />
+              <Route
+                path="/dashboard/payment-plans"
+                element={
+                  <>
+                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/payment-plans" noindex nofollow />
+                    <ProtectedRoute requiredRole="admin"><AdminPaymentPlans /></ProtectedRoute>
+                  </>
+                }
+              />
+              <Route
+                path="/dashboard/settings"
+                element={
+                  <>
+                    <Seo title="Dashboard" description="Private dashboard area for Alresia Technologies." path="/dashboard/settings" noindex nofollow />
+                    <ProtectedRoute><DashboardSettings /></ProtectedRoute>
+                  </>
+                }
+              />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

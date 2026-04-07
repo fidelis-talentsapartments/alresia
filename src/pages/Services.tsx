@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   Code,
 } from "lucide-react";
+import { Seo } from "@/components/seo/Seo";
 
 const services = [
   {
@@ -203,8 +204,22 @@ const services = [
 
 export default function Services() {
   return (
-    <Layout>
-      {/* Hero */}
+    <>
+      <Seo
+        title="Services"
+        description="Explore Alresia Technologies services across web development, mobile apps, AI solutions, UI/UX design, branding, cloud, and cybersecurity."
+        path="/services"
+        keywords={[
+          "web development services",
+          "mobile app development",
+          "AI consulting",
+          "UI/UX design",
+          "cloud and devops",
+          "cybersecurity services",
+        ]}
+      />
+      <Layout>
+        {/* Hero */}
       <section className="pt-32 pb-16 relative">
         <div className="absolute inset-0 grid-pattern -z-10" />
         <div className="container mx-auto px-4">
@@ -312,6 +327,7 @@ export default function Services() {
           </div>
         </div>
       </section>
-    </Layout>
+      </Layout>
+    </>
   );
 }

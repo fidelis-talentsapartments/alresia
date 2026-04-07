@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { projects, categories } from "@/data/projects";
+import { Seo } from "@/components/seo/Seo";
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -15,8 +16,21 @@ export default function Projects() {
       : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <Layout>
-      {/* Hero */}
+    <>
+      <Seo
+        title="Projects"
+        description="Browse case studies and selected work from Alresia Technologies across web, mobile, AI, and design engagements."
+        path="/projects"
+        keywords={[
+          "case studies",
+          "portfolio",
+          "web projects",
+          "mobile projects",
+          "AI case studies",
+        ]}
+      />
+      <Layout>
+        {/* Hero */}
       <section className="pt-32 pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
@@ -118,6 +132,7 @@ export default function Projects() {
           </Link>
         </div>
       </section>
-    </Layout>
+      </Layout>
+    </>
   );
 }

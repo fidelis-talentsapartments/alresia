@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Seo } from "@/components/seo/Seo";
+import { siteConfig } from "@/lib/site";
 
 const contactInfo = [
   {
@@ -55,8 +57,40 @@ export default function Contact() {
   };
 
   return (
-    <Layout>
-      {/* Hero */}
+    <>
+      <Seo
+        title="Contact"
+        description="Contact Alresia Technologies to discuss your project, request a proposal, or ask about web, mobile, AI, and design services."
+        path="/contact"
+        keywords={[
+          "contact Alresia Technologies",
+          "request a proposal",
+          "schedule a consultation",
+          "hello@alresia.com",
+        ]}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          name: `${siteConfig.name} Contact`,
+          url: `${siteConfig.url}/contact`,
+          mainEntity: {
+            "@type": "Organization",
+            name: siteConfig.name,
+            url: siteConfig.url,
+            email: siteConfig.email,
+            contactPoint: [
+              {
+                "@type": "ContactPoint",
+                contactType: "sales",
+                email: siteConfig.email,
+                availableLanguage: ["en"],
+              },
+            ],
+          },
+        }}
+      />
+      <Layout>
+        {/* Hero */}
       <section className="pt-32 pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
@@ -195,6 +229,7 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </Layout>
+      </Layout>
+    </>
   );
 }

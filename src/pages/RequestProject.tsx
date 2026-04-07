@@ -16,6 +16,7 @@ import {
 import { ArrowLeft, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import { Seo } from "@/components/seo/Seo";
 
 const projectTypes = [
   { id: "web", label: "Web Application" },
@@ -104,8 +105,14 @@ export default function RequestProject() {
 
   if (isSubmitted) {
     return (
-      <Layout>
-        <section className="pt-32 pb-24 min-h-screen flex items-center">
+      <>
+        <Seo
+          title="Request a Project"
+          description="Your project request has been submitted to Alresia Technologies. We will review the details and respond within 24 hours."
+          path="/request-project"
+        />
+        <Layout>
+          <section className="pt-32 pb-24 min-h-screen flex items-center">
           <div className="container mx-auto px-4">
             <div className="max-w-xl mx-auto text-center">
               <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
@@ -128,13 +135,26 @@ export default function RequestProject() {
             </div>
           </div>
         </section>
-      </Layout>
+        </Layout>
+      </>
     );
   }
 
   return (
-    <Layout>
-      {/* Hero */}
+    <>
+      <Seo
+        title="Request a Project"
+        description="Tell Alresia Technologies about your project and receive a scoped proposal, timeline, and technology recommendations."
+        path="/request-project"
+        keywords={[
+          "project request",
+          "proposal",
+          "estimation",
+          "digital product scope",
+        ]}
+      />
+      <Layout>
+        {/* Hero */}
       <section className="pt-32 pb-8">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -413,6 +433,7 @@ export default function RequestProject() {
           </div>
         </div>
       </section>
-    </Layout>
+      </Layout>
+    </>
   );
 }

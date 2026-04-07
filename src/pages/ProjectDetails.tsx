@@ -13,6 +13,8 @@ import {
   Layers,
 } from "lucide-react";
 import { getProjectById, projects } from "@/data/projects";
+import { Seo } from "@/components/seo/Seo";
+import { siteConfig } from "@/lib/site";
 
 export default function ProjectDetails() {
   const { id } = useParams();
@@ -21,8 +23,16 @@ export default function ProjectDetails() {
 
   if (!project) {
     return (
-      <Layout>
-        <section className="min-h-screen flex items-center justify-center">
+      <>
+        <Seo
+          title="Project Not Found"
+          description="The requested project case study could not be found. Explore other projects from Alresia Technologies."
+          path={`/projects/${id ?? "unknown"}`}
+          noindex
+          nofollow
+        />
+        <Layout>
+          <section className="min-h-screen flex items-center justify-center">
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-bold">Project Not Found</h1>
             <p className="text-muted-foreground">
@@ -36,7 +46,8 @@ export default function ProjectDetails() {
             </Link>
           </div>
         </section>
-      </Layout>
+        </Layout>
+      </>
     );
   }
 
@@ -48,9 +59,65 @@ export default function ProjectDetails() {
     .filter((p) => p.category === project.category && p.id !== project.id)
     .slice(0, 2);
 
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: siteConfig.url,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Projects",
+          item: `${siteConfig.url}/projects`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: project.title,
+          item: `${siteConfig.url}/projects/${project.id}`,
+        },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: project.title,
+      description: project.description,
+      url: `${siteConfig.url}/projects/${project.id}`,
+      image: project.image,
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      provider: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+    },
+  ];
+
   return (
-    <Layout>
-      {/* Hero */}
+    <>
+      <Seo
+        title={`${project.title} Case Study`}
+        description={project.description}
+        path={`/projects/${project.id}`}
+        image={project.image}
+        imageAlt={project.title}
+        type="article"
+        keywords={[project.category, ...project.tags, project.client, "case study"]}
+        structuredData={structuredData}
+      />
+      <Layout>
+        {/* Hero */}
       <section className="pt-28 pb-12 relative overflow-hidden">
         <div className="absolute inset-0 grid-pattern opacity-10 -z-10" />
         <div className="orb orb-1 -z-10" />
@@ -341,6 +408,7 @@ export default function ProjectDetails() {
           </Link>
         </div>
       </section>
-    </Layout>
+      </Layout>
+    </>
   );
 }

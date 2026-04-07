@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, Users, Target, Award, Heart } from "lucide-react";
+import { Seo } from "@/components/seo/Seo";
 
 const values = [
   {
@@ -51,8 +52,20 @@ const team = [
 
 export default function About() {
   return (
-    <Layout>
-      {/* Hero */}
+    <>
+      <Seo
+        title="About Alresia Technologies"
+        description="Learn how Alresia Technologies helps brands ship better digital products through transparent delivery, technical excellence, and long-term partnership."
+        path="/about"
+        keywords={[
+          "about Alresia Technologies",
+          "digital product studio",
+          "software development partner",
+          "transparent delivery",
+        ]}
+      />
+      <Layout>
+        {/* Hero */}
       <section className="pt-32 pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
@@ -188,6 +201,7 @@ export default function About() {
           </Link>
         </div>
       </section>
-    </Layout>
+      </Layout>
+    </>
   );
 }

@@ -12,6 +12,7 @@ import { OAuthButtons } from "@/components/auth/OAuthButtons";
 import { AuthDivider } from "@/components/auth/AuthDivider";
 import { AuthCardWrapper } from "@/components/auth/AuthCardWrapper";
 import alresiaLogo from "@/assets/alresia-logo.jpeg";
+import { Seo } from "@/components/seo/Seo";
 
 export default function Login() {
   const { toast } = useToast();
@@ -59,8 +60,16 @@ export default function Login() {
   };
 
   return (
-    <Layout showFooter={false}>
-      <section className="min-h-screen flex items-center justify-center pt-20 pb-12 relative overflow-hidden">
+    <>
+      <Seo
+        title="Sign In"
+        description="Sign in to your Alresia Technologies workspace to access projects, updates, and collaboration tools."
+        path="/login"
+        noindex
+        nofollow
+      />
+      <Layout showFooter={false}>
+        <section className="min-h-screen flex items-center justify-center pt-20 pb-12 relative overflow-hidden">
         <div className="absolute inset-0 grid-pattern opacity-20 -z-10" />
         <div className="orb orb-1 -z-10" />
         <div className="orb orb-2 -z-10" />
@@ -190,7 +199,8 @@ export default function Login() {
             </form>
           </AuthCardWrapper>
         </div>
-      </section>
-    </Layout>
+        </section>
+      </Layout>
+    </>
   );
 }
