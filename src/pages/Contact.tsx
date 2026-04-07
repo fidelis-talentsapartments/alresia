@@ -13,14 +13,14 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    value: "hello@alresia.com",
-    href: "mailto:hello@alresia.com",
+    value: "hello@alresia.tech",
+    href: "mailto:hello@alresia.tech",
   },
   {
     icon: Phone,
-    title: "Phone",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    title: "Phone / WhatsApp",
+    value: "+234 705 044 3290",
+    href: "tel:+2347050443290",
   },
   {
     icon: MapPin,
@@ -66,7 +66,7 @@ export default function Contact() {
           "contact Alresia Technologies",
           "request a proposal",
           "schedule a consultation",
-          "hello@alresia.com",
+          "hello@alresia.tech",
         ]}
         structuredData={{
           "@context": "https://schema.org",
