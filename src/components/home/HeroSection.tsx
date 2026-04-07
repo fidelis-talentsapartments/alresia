@@ -8,7 +8,7 @@ const codeLines = [
   '$ alresia init --project "your-vision"',
   "→ Scaffolding infrastructure...",
   "→ Deploying to production...",
-  "✓ Project live at alresia.com",
+  "✓ Project live at alresia.tech",
 ];
 
 function useTerminalLines(lines: string[], charSpeed = 30, lineDelay = 800) {

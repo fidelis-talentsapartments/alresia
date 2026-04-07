@@ -32,7 +32,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider
-      defaultTheme="dark"
+      defaultTheme="system"
       attribute="class"
       enableSystem
       disableTransitionOnChange
@@ -188,6 +188,12 @@ const App = () => (
     </ThemeProvider>
   </QueryClientProvider>
 );
+
+function DashboardProjectsInner() {
+  const { isAdmin, isStaff } = useAuth();
+  return isAdmin || isStaff ? <AdminProjects /> : <ClientProjects />;
+}
+
 // Routes projects page based on role
 function DashboardProjectsRouter() {
   return <DashboardProjectsInner />;
