@@ -1,11 +1,8 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Terminal } from "lucide-react";
-
-const TechGlobe = lazy(() =>
-  import("./TechGlobe").then((m) => ({ default: m.TechGlobe }))
-);
+import { TechGlobe } from "./TechGlobe";
 
 const codeLines = [
   '$ alresia init --project "your-vision"',
