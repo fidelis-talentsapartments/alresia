@@ -1,11 +1,8 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Terminal } from "lucide-react";
-
-const TechGlobe = lazy(() =>
-  import("./TechGlobe").then((m) => ({ default: m.TechGlobe }))
-);
+import { TechGlobe } from "./TechGlobe";
 
 const codeLines = [
   '$ alresia init --project "your-vision"',
@@ -154,15 +151,7 @@ export function HeroSection() {
 
           {/* Right — Globe */}
           <div className="hidden lg:block animate-fade-up" style={{ animationDelay: "0.2s" }}>
-            <Suspense
-              fallback={
-                <div className="w-full h-[550px] flex items-center justify-center">
-                  <div className="w-32 h-32 rounded-full border-2 border-primary/20 animate-pulse" />
-                </div>
-              }
-            >
-              <TechGlobe />
-            </Suspense>
+            <TechGlobe />
           </div>
         </div>
 

@@ -1,197 +1,192 @@
-import { useRef, useMemo, useCallback } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Text, Float, Line } from "@react-three/drei";
+import { useRef, useMemo, useEffect } from "react";
 import * as THREE from "three";
 
 const CAPABILITIES = [
-  { label: "Web Apps", lat: 20, lng: 30 },
-  { label: "Mobile", lat: -15, lng: 120 },
-  { label: "AI / ML", lat: 45, lng: -60 },
-  { label: "Cloud", lat: -40, lng: -130 },
-  { label: "Video", lat: 60, lng: 160 },
-  { label: "Design", lat: -55, lng: 60 },
-  { label: "DevOps", lat: 10, lng: -170 },
-  { label: "APIs", lat: -30, lng: -30 },
-  { label: "Security", lat: 35, lng: 90 },
-  { label: "Analytics", lat: -10, lng: -90 },
+  "Web Apps", "Mobile", "AI / ML", "Cloud",
+  "Video", "Design", "DevOps", "APIs",
+  "Security", "Analytics",
 ];
 
-function latLngToVec3(lat: number, lng: number, radius: number): [number, number, number] {
-  const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lng + 180) * (Math.PI / 180);
-  return [
-    -radius * Math.sin(phi) * Math.cos(theta),
-    radius * Math.cos(phi),
-    radius * Math.sin(phi) * Math.sin(theta),
+function createGlobeScene(canvas: HTMLCanvasElement) {
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+  camera.position.z = 4.2;
+
+  const radius = 1.8;
+  const group = new THREE.Group();
+  scene.add(group);
+
+  // Core sphere (dark fill)
+  const coreMat = new THREE.MeshBasicMaterial({ color: 0x0a1628, transparent: true, opacity: 0.85 });
+  const coreGeo = new THREE.SphereGeometry(radius * 0.97, 32, 32);
+  group.add(new THREE.Mesh(coreGeo, coreMat));
+
+  // Wireframe sphere
+  const wireGeo = new THREE.SphereGeometry(radius, 24, 18);
+  const wireMat = new THREE.MeshBasicMaterial({ color: 0x1a8fff, wireframe: true, transparent: true, opacity: 0.12 });
+  group.add(new THREE.Mesh(wireGeo, wireMat));
+
+  // Surface dots
+  const dotCount = 600;
+  const dotGeo = new THREE.BufferGeometry();
+  const dotPos = new Float32Array(dotCount * 3);
+  for (let i = 0; i < dotCount; i++) {
+    const u = Math.random();
+    const v = Math.random();
+    const theta = 2 * Math.PI * u;
+    const phi = Math.acos(2 * v - 1);
+    dotPos[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+    dotPos[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+    dotPos[i * 3 + 2] = radius * Math.cos(phi);
+  }
+  dotGeo.setAttribute("position", new THREE.BufferAttribute(dotPos, 3));
+  const dotMat = new THREE.PointsMaterial({ color: 0x38bdf8, size: 0.025, transparent: true, opacity: 0.5, sizeAttenuation: true });
+  group.add(new THREE.Points(dotGeo, dotMat));
+
+  // Helper: lat/lng to vec3
+  function ll(lat: number, lng: number, r: number): THREE.Vector3 {
+    const phi = (90 - lat) * (Math.PI / 180);
+    const theta = (lng + 180) * (Math.PI / 180);
+    return new THREE.Vector3(
+      -r * Math.sin(phi) * Math.cos(theta),
+      r * Math.cos(phi),
+      r * Math.sin(phi) * Math.sin(theta),
+    );
+  }
+
+  // Capability positions
+  const capCoords = [
+    { lat: 20, lng: 30 }, { lat: -15, lng: 120 }, { lat: 45, lng: -60 },
+    { lat: -40, lng: -130 }, { lat: 60, lng: 160 }, { lat: -55, lng: 60 },
+    { lat: 10, lng: -170 }, { lat: -30, lng: -30 }, { lat: 35, lng: 90 },
+    { lat: -10, lng: -90 },
   ];
-}
 
-function GlobeCore({ radius }: { radius: number }) {
-  const groupRef = useRef<THREE.Group>(null);
-  const mouseTarget = useRef({ x: 0, y: 0 });
-  const currentRot = useRef({ x: 0.3, y: 0 });
-
-  useFrame(({ mouse }) => {
-    if (!groupRef.current) return;
-    mouseTarget.current.x = mouse.y * 0.4;
-    mouseTarget.current.y = mouse.x * 0.8;
-    currentRot.current.x += (mouseTarget.current.x - currentRot.current.x) * 0.03;
-    currentRot.current.y += (mouseTarget.current.y - currentRot.current.y) * 0.03;
-    groupRef.current.rotation.x = currentRot.current.x;
-    groupRef.current.rotation.y = currentRot.current.y + performance.now() * 0.00008;
+  // Marker dots on surface
+  const markerGeo = new THREE.SphereGeometry(0.04, 8, 8);
+  const markerMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+  capCoords.forEach((c) => {
+    const pos = ll(c.lat, c.lng, radius);
+    const mesh = new THREE.Mesh(markerGeo, markerMat);
+    mesh.position.copy(pos);
+    group.add(mesh);
   });
 
-  // Latitude lines
-  const latLines = useMemo(() => {
-    const lines: [number, number, number][][] = [];
-    for (let lat = -60; lat <= 60; lat += 30) {
-      const pts: [number, number, number][] = [];
-      for (let lng = 0; lng <= 360; lng += 5) {
-        pts.push(latLngToVec3(lat, lng, radius));
-      }
-      lines.push(pts);
-    }
-    return lines;
-  }, [radius]);
-
-  // Longitude lines
-  const lngLines = useMemo(() => {
-    const lines: [number, number, number][][] = [];
-    for (let lng = 0; lng < 360; lng += 30) {
-      const pts: [number, number, number][] = [];
-      for (let lat = -90; lat <= 90; lat += 5) {
-        pts.push(latLngToVec3(lat, lng, radius));
-      }
-      lines.push(pts);
-    }
-    return lines;
-  }, [radius]);
-
-  // Dots on surface
-  const dotPositions = useMemo(() => {
-    const pos = new Float32Array(800 * 3);
-    for (let i = 0; i < 800; i++) {
-      const u = Math.random();
-      const v = Math.random();
-      const theta = 2 * Math.PI * u;
-      const phi = Math.acos(2 * v - 1);
-      pos[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-      pos[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      pos[i * 3 + 2] = radius * Math.cos(phi);
-    }
-    return pos;
-  }, [radius]);
-
   // Connection arcs
-  const arcs = useMemo(() => {
-    const pairs = [[0, 1], [2, 3], [4, 5], [6, 7], [1, 8], [3, 9]];
-    return pairs.map(([a, b]) => {
-      const s = new THREE.Vector3(...latLngToVec3(CAPABILITIES[a].lat, CAPABILITIES[a].lng, radius));
-      const e = new THREE.Vector3(...latLngToVec3(CAPABILITIES[b].lat, CAPABILITIES[b].lng, radius));
-      const mid = s.clone().add(e).multiplyScalar(0.5).normalize().multiplyScalar(radius * 1.35);
-      const curve = new THREE.QuadraticBezierCurve3(s, mid, e);
-      return curve.getPoints(40).map((p): [number, number, number] => [p.x, p.y, p.z]);
-    });
-  }, [radius]);
+  const arcPairs = [[0, 2], [1, 3], [4, 5], [6, 7], [8, 9], [0, 8]];
+  const arcMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.3 });
+  arcPairs.forEach(([a, b]) => {
+    const s = ll(capCoords[a].lat, capCoords[a].lng, radius);
+    const e = ll(capCoords[b].lat, capCoords[b].lng, radius);
+    const mid = s.clone().add(e).multiplyScalar(0.5).normalize().multiplyScalar(radius * 1.35);
+    const curve = new THREE.QuadraticBezierCurve3(s, mid, e);
+    const pts = curve.getPoints(30);
+    const geo = new THREE.BufferGeometry().setFromPoints(pts);
+    group.add(new THREE.Line(geo, arcMat));
+  });
 
-  // Capability pin positions
-  const pins = useMemo(() => {
-    return CAPABILITIES.map((cap) => {
-      const surface = latLngToVec3(cap.lat, cap.lng, radius);
-      const outer = latLngToVec3(cap.lat, cap.lng, radius + 0.28);
-      const labelPos = latLngToVec3(cap.lat, cap.lng, radius + 0.4);
-      return { label: cap.label, surface, outer, labelPos };
-    });
-  }, [radius]);
+  // Orbital rings
+  const ring1Geo = new THREE.TorusGeometry(radius * 1.15, 0.008, 8, 100);
+  const ring1Mat = new THREE.MeshBasicMaterial({ color: 0x1a8fff, transparent: true, opacity: 0.2 });
+  const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
+  ring1.rotation.x = Math.PI / 2;
+  group.add(ring1);
 
-  return (
-    <group ref={groupRef}>
-      {/* Glow sphere */}
-      <mesh>
-        <sphereGeometry args={[radius * 0.98, 32, 32]} />
-        <meshBasicMaterial color="#0a1628" transparent opacity={0.85} />
-      </mesh>
+  const ring2Geo = new THREE.TorusGeometry(radius * 1.25, 0.006, 8, 100);
+  const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.12 });
+  const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+  ring2.rotation.set(1.2, 0.5, 0);
+  group.add(ring2);
 
-      {/* Wireframe grid */}
-      {latLines.map((pts, i) => (
-        <Line key={`lat-${i}`} points={pts} color="#1a8fff" lineWidth={0.5} transparent opacity={0.15} />
-      ))}
-      {lngLines.map((pts, i) => (
-        <Line key={`lng-${i}`} points={pts} color="#1a8fff" lineWidth={0.5} transparent opacity={0.15} />
-      ))}
+  // Text labels using Canvas textures (no font loading needed)
+  CAPABILITIES.forEach((label, i) => {
+    const c = capCoords[i];
+    const pos = ll(c.lat, c.lng, radius + 0.3);
 
-      {/* Surface dots */}
-      <points>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" array={dotPositions} count={800} itemSize={3} />
-        </bufferGeometry>
-        <pointsMaterial color="#38bdf8" size={0.02} transparent opacity={0.45} sizeAttenuation />
-      </points>
+    const canvas2d = document.createElement("canvas");
+    canvas2d.width = 256;
+    canvas2d.height = 64;
+    const ctx = canvas2d.getContext("2d")!;
+    ctx.clearRect(0, 0, 256, 64);
+    ctx.font = "bold 28px monospace";
+    ctx.fillStyle = "#93c5fd";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(label, 128, 32);
 
-      {/* Arcs */}
-      {arcs.map((pts, i) => (
-        <Line key={`arc-${i}`} points={pts} color="#38bdf8" lineWidth={1} transparent opacity={0.35} />
-      ))}
+    const texture = new THREE.CanvasTexture(canvas2d);
+    texture.needsUpdate = true;
+    const spriteMat = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.9, depthWrite: false });
+    const sprite = new THREE.Sprite(spriteMat);
+    sprite.position.copy(pos);
+    sprite.scale.set(0.6, 0.15, 1);
+    group.add(sprite);
+  });
 
-      {/* Capability markers */}
-      {pins.map((pin, i) => (
-        <group key={i}>
-          {/* Dot on surface */}
-          <mesh position={pin.surface}>
-            <sphereGeometry args={[0.04, 8, 8]} />
-            <meshBasicMaterial color="#38bdf8" />
-          </mesh>
-          {/* Pulse ring */}
-          <mesh position={pin.surface} rotation={[0, 0, 0]}>
-            <ringGeometry args={[0.05, 0.07, 16]} />
-            <meshBasicMaterial color="#38bdf8" transparent opacity={0.3} side={THREE.DoubleSide} />
-          </mesh>
-          {/* Pin line */}
-          <Line points={[pin.surface, pin.outer]} color="#38bdf8" lineWidth={1} transparent opacity={0.5} />
-          {/* Label */}
-          <Float speed={1.5} floatIntensity={0.1} rotationIntensity={0}>
-            <Text
-              position={pin.labelPos}
-              fontSize={0.11}
-              color="#93c5fd"
-              anchorX="center"
-              anchorY="middle"
-              outlineWidth={0.008}
-              outlineColor="#000814"
-            >
-              {pin.label}
-            </Text>
-          </Float>
-        </group>
-      ))}
+  // Mouse tracking
+  const mouse = { x: 0, y: 0 };
+  const targetRot = { x: 0.3, y: 0 };
+  const currentRot = { x: 0.3, y: 0 };
 
-      {/* Orbital rings */}
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[radius * 1.15, 0.008, 8, 100]} />
-        <meshBasicMaterial color="#1a8fff" transparent opacity={0.2} />
-      </mesh>
-      <mesh rotation={[1.2, 0.5, 0]}>
-        <torusGeometry args={[radius * 1.25, 0.006, 8, 100]} />
-        <meshBasicMaterial color="#38bdf8" transparent opacity={0.12} />
-      </mesh>
-    </group>
-  );
+  function onMouseMove(e: MouseEvent) {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    targetRot.x = mouse.y * 0.4;
+    targetRot.y = mouse.x * 0.8;
+  }
+
+  canvas.addEventListener("mousemove", onMouseMove);
+
+  let animId: number;
+  function animate() {
+    animId = requestAnimationFrame(animate);
+    currentRot.x += (targetRot.x - currentRot.x) * 0.03;
+    currentRot.y += (targetRot.y - currentRot.y) * 0.03;
+    group.rotation.x = currentRot.x;
+    group.rotation.y = currentRot.y + performance.now() * 0.00008;
+
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    if (canvas.width !== w || canvas.height !== h) {
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  return () => {
+    cancelAnimationFrame(animId);
+    canvas.removeEventListener("mousemove", onMouseMove);
+    renderer.dispose();
+  };
 }
 
 export function TechGlobe() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const cleanup = createGlobeScene(canvasRef.current);
+    return cleanup;
+  }, []);
+
   return (
     <div className="w-full h-full min-h-[500px] md:min-h-[600px] relative">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-[70%] h-[70%] rounded-full bg-primary/10 blur-[100px]" />
       </div>
-      <Canvas
-        camera={{ position: [0, 0, 4.2], fov: 50 }}
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full"
         style={{ cursor: "grab" }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
-      >
-        <GlobeCore radius={2.0} />
-      </Canvas>
+      />
     </div>
   );
 }
