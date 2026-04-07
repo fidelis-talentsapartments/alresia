@@ -29,7 +29,7 @@ const socialLinks = [
   { name: "Twitter", icon: Twitter, href: "https://twitter.com" },
   { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com" },
   { name: "Instagram", icon: Instagram, href: "https://instagram.com" },
-  { name: "Email", icon: Mail, href: "mailto:hello@alresia.com" },
+  { name: "Email", icon: Mail, href: "mailto:hello@alresia.tech" },
 ];
 
 export function Footer() {
