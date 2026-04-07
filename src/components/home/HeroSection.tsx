@@ -150,7 +150,7 @@ export function HeroSection() {
           </div>
 
           {/* Right — Globe */}
-          <div className="hidden lg:block animate-fade-up" style={{ animationDelay: "0.2s" }}>
+          <div className="hidden lg:flex items-center justify-center animate-fade-up" style={{ animationDelay: "0.2s" }}>
             <TechGlobe />
           </div>
         </div>
