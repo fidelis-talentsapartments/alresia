@@ -54,7 +54,7 @@ export function HeroSection() {
   const typedLines = useTerminalLines(codeLines);
 
   return (
-    <section className="relative min-h-[100vh] flex items-center pt-24 pb-16 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden">
       {/* Grid pattern bg */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-[size:64px_64px]" />
