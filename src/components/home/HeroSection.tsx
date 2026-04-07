@@ -63,9 +63,9 @@ export function HeroSection() {
       </div>
 
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[600px]">
           {/* Left — Content */}
-          <div className="max-w-xl">
+          <div className="max-w-xl flex flex-col justify-center">
             {/* Eyebrow */}
             <div className="flex mb-6 animate-fade-up">
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5">
