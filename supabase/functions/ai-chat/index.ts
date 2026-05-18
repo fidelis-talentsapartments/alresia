@@ -20,7 +20,7 @@ const SYSTEM_PROMPT = `You are Aria, the AI assistant for Alresia Technologies �
 - Founded in 2020. 50+ projects delivered. 98% client satisfaction. 12+ creative services. 24/7 support.
 - Tagline: "Engineering Intelligence. Inspiring Creativity."
 - Full-spectrum technology & creative studio — software, design, video, music, AI.
-- Contact: hello@alresia.com | +1 (555) 123-4567 | San Francisco, CA | Mon-Fri 9am-6pm PST
+- Contact: hello@alresia.tech | +234 705 044 3290 | Mon–Fri 9am–6pm
 - Values: Client-Centric, Excellence, Transparency, Partnership
 
 ## TEAM

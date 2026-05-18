@@ -1,0 +1,197 @@
+[
+  {
+    "id": "web",
+    "icon": "Code",
+    "title": "Web Development",
+    "shortDescription": "React, Next.js, full-stack apps with scalable architecture.",
+    "description": "Custom web applications built with modern frameworks and scalable architecture.",
+    "features": [
+      "React, Next.js, Vue.js applications",
+      "Progressive Web Apps (PWA)",
+      "E-commerce platforms",
+      "Enterprise dashboards",
+      "API development & integration",
+      "Performance optimization"
+    ],
+    "technologies": ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "GraphQL"],
+    "bentoSpan": "md:col-span-2"
+  },
+  {
+    "id": "mobile",
+    "icon": "Smartphone",
+    "title": "Mobile Development",
+    "shortDescription": "Native & cross-platform for iOS and Android.",
+    "description": "Native and cross-platform mobile applications for iOS and Android.",
+    "features": [
+      "React Native applications",
+      "Native iOS & Android apps",
+      "Offline-first architecture",
+      "Push notifications",
+      "In-app purchases",
+      "App Store optimization"
+    ],
+    "technologies": ["React Native", "Swift", "Kotlin", "Flutter", "Firebase"]
+  },
+  {
+    "id": "ai",
+    "icon": "Brain",
+    "title": "AI & Machine Learning",
+    "shortDescription": "Custom models, NLP, computer vision, intelligent automation.",
+    "description": "Intelligent automation, machine learning, and AI-powered features.",
+    "features": [
+      "Custom AI model development",
+      "Natural language processing",
+      "Computer vision solutions",
+      "Predictive analytics",
+      "Chatbots & virtual assistants",
+      "AI-powered recommendations"
+    ],
+    "technologies": ["Python", "TensorFlow", "PyTorch", "OpenAI", "LangChain", "Hugging Face"]
+  },
+  {
+    "id": "design",
+    "icon": "Palette",
+    "title": "UI/UX Design",
+    "shortDescription": "Interfaces people actually want to use.",
+    "description": "Beautiful, intuitive interfaces that users love and engage with.",
+    "features": [
+      "User research & personas",
+      "Wireframing & prototyping",
+      "Visual design systems",
+      "Interaction design",
+      "Usability testing",
+      "Design system creation"
+    ],
+    "technologies": ["Figma", "Framer", "Adobe XD", "Principle", "Lottie"],
+    "bentoSpan": "md:col-span-2"
+  },
+  {
+    "id": "video",
+    "icon": "Video",
+    "title": "Video Production & Editing",
+    "shortDescription": "Editing, motion graphics, and post-production.",
+    "description": "Professional video editing, motion graphics, VFX, and post-production.",
+    "features": [
+      "Commercial & promotional videos",
+      "Motion graphics & animation",
+      "Color grading & VFX",
+      "Corporate video production",
+      "Social media video content",
+      "Documentary filmmaking"
+    ],
+    "technologies": ["Premiere Pro", "After Effects", "DaVinci Resolve", "Cinema 4D", "Blender"]
+  },
+  {
+    "id": "coverage",
+    "icon": "Camera",
+    "title": "Video Coverage",
+    "shortDescription": "Events, corporate, documentaries, live streams.",
+    "description": "Professional video coverage for events, conferences, and corporate occasions.",
+    "features": [
+      "Event coverage & livestreaming",
+      "Conference & seminar recording",
+      "Product launch videos",
+      "Interview & testimonial production",
+      "Multi-camera setups",
+      "Live event broadcasting"
+    ],
+    "technologies": ["Multi-cam", "LiveU", "OBS", "Wirecast", "4K/8K Capture"]
+  },
+  {
+    "id": "music",
+    "icon": "Music",
+    "title": "Music & Audio Studio",
+    "shortDescription": "Recording, mixing, mastering, sound design.",
+    "description": "Full-service recording, mixing, mastering, and sound design studio.",
+    "features": [
+      "Recording & production",
+      "Mixing & mastering",
+      "Sound design & Foley",
+      "Original music scores",
+      "Podcast production",
+      "Voiceover recording"
+    ],
+    "technologies": ["Logic Pro", "Pro Tools", "Ableton Live", "FL Studio", "Izotope"],
+    "bentoSpan": "md:col-span-2"
+  },
+  {
+    "id": "graphic",
+    "icon": "Brush",
+    "title": "Graphic Design",
+    "shortDescription": "Visual identity, print, packaging, digital assets.",
+    "description": "Stunning visual design for print, digital, packaging, and beyond.",
+    "features": [
+      "Print design & layout",
+      "Packaging design",
+      "Infographics & data visualization",
+      "Social media graphics",
+      "Illustration & artwork",
+      "Environmental design"
+    ],
+    "technologies": ["Photoshop", "Illustrator", "InDesign", "Procreate", "Canva"]
+  },
+  {
+    "id": "branding",
+    "icon": "Globe",
+    "title": "Branding & Identity",
+    "shortDescription": "Strategy, logos, brand guidelines, positioning.",
+    "description": "Strategic brand development from positioning to visual identity.",
+    "features": [
+      "Brand strategy & positioning",
+      "Logo design & identity systems",
+      "Brand guidelines & playbooks",
+      "Naming & messaging",
+      "Brand audit & refresh",
+      "Competitive analysis"
+    ],
+    "technologies": ["Brand Strategy", "Visual Identity", "Tone of Voice", "Style Guides"]
+  },
+  {
+    "id": "marketing",
+    "icon": "Megaphone",
+    "title": "Digital Marketing",
+    "shortDescription": "SEO, social media, paid ads, content strategy.",
+    "description": "Data-driven marketing strategies that grow your audience and revenue.",
+    "features": [
+      "SEO & content strategy",
+      "Social media management",
+      "Paid advertising (PPC)",
+      "Email marketing campaigns",
+      "Analytics & reporting",
+      "Influencer partnerships"
+    ],
+    "technologies": ["Google Ads", "Meta Ads", "Mailchimp", "HubSpot", "SEMrush"]
+  },
+  {
+    "id": "cloud",
+    "icon": "Server",
+    "title": "Cloud & DevOps",
+    "shortDescription": "Infrastructure, CI/CD, cloud optimization.",
+    "description": "Scalable infrastructure, CI/CD pipelines, and cloud optimization.",
+    "features": [
+      "Cloud architecture design",
+      "CI/CD pipeline setup",
+      "Container orchestration",
+      "Monitoring & alerting",
+      "Cost optimization",
+      "Disaster recovery"
+    ],
+    "technologies": ["AWS", "GCP", "Azure", "Docker", "Kubernetes", "Terraform"]
+  },
+  {
+    "id": "security",
+    "icon": "Shield",
+    "title": "Cybersecurity",
+    "shortDescription": "Audits, compliance, penetration testing.",
+    "description": "Enterprise-grade security audits and compliance implementation.",
+    "features": [
+      "Security audits & penetration testing",
+      "GDPR/HIPAA compliance",
+      "SOC 2 certification prep",
+      "Identity & access management",
+      "Data encryption",
+      "Security training"
+    ],
+    "technologies": ["OAuth", "SSO", "WAF", "SIEM", "HashiCorp Vault"]
+  }
+]
