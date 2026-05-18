@@ -56,10 +56,10 @@ function createGlobeScene(canvas: HTMLCanvasElement, isDark: boolean) {
   renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-  camera.position.z = 4.2;
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+  camera.position.z = 6.2;
 
-  const radius = 1.8;
+  const radius = 1.55;
   const colors = getThemeColors(isDark);
   const group = new THREE.Group();
   scene.add(group);
@@ -214,13 +214,13 @@ export function TechGlobe() {
   }, []);
 
   return (
-    <div className="w-full relative" style={{ height: "550px" }}>
+    <div className="w-full relative aspect-square max-w-[560px] mx-auto">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[60%] h-[60%] rounded-full bg-primary/10 blur-[100px]" />
+        <div className="w-[55%] h-[55%] rounded-full bg-primary/10 blur-[110px]" />
       </div>
       <canvas
         ref={canvasRef}
-        className="w-full h-full"
+        className="w-full h-full block"
         style={{ cursor: "grab" }}
       />
     </div>

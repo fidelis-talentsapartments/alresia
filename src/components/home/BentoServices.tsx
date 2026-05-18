@@ -1,24 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRight, Code, Smartphone, Brain, Palette, Video,
-  Camera, Music, Brush, Megaphone, Globe, Server, Shield,
-} from "lucide-react";
-
-const services = [
-  { icon: Code, title: "Web Development", description: "React, Next.js, full-stack apps with scalable architecture.", href: "/services#web", span: "md:col-span-2" },
-  { icon: Smartphone, title: "Mobile Apps", description: "Native & cross-platform for iOS and Android.", href: "/services#mobile", span: "" },
-  { icon: Brain, title: "AI & ML", description: "Custom models, NLP, computer vision, intelligent automation.", href: "/services#ai", span: "" },
-  { icon: Palette, title: "UI/UX Design", description: "Interfaces people actually want to use.", href: "/services#design", span: "md:col-span-2" },
-  { icon: Video, title: "Video Production", description: "Editing, motion graphics, and post-production.", href: "/services#video", span: "" },
-  { icon: Camera, title: "Video Coverage", description: "Events, corporate, documentaries, live streams.", href: "/services#coverage", span: "" },
-  { icon: Music, title: "Music & Audio", description: "Recording, mixing, mastering, sound design.", href: "/services#music", span: "md:col-span-2" },
-  { icon: Brush, title: "Graphic Design", description: "Visual identity, print, packaging, digital assets.", href: "/services#graphic", span: "" },
-  { icon: Globe, title: "Branding", description: "Strategy, logos, brand guidelines, positioning.", href: "/services#branding", span: "" },
-  { icon: Megaphone, title: "Digital Marketing", description: "SEO, social media, paid ads, content strategy.", href: "/services#marketing", span: "" },
-  { icon: Server, title: "Cloud & DevOps", description: "Infrastructure, CI/CD, cloud optimization.", href: "/services#cloud", span: "" },
-  { icon: Shield, title: "Cybersecurity", description: "Audits, compliance, penetration testing.", href: "/services#security", span: "" },
-];
+import { ArrowRight } from "lucide-react";
+import { services } from "@/data/services";
 
 export function BentoServices() {
   return (
@@ -37,9 +20,9 @@ export function BentoServices() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {services.map((service, index) => (
             <Link
-              key={service.title}
+              key={service.id}
               to={service.href}
-              className={`group relative p-5 rounded-xl border border-border/50 bg-card/40 hover:bg-card hover:border-primary/30 hover:shadow-md transition-all duration-400 animate-fade-up ${service.span}`}
+              className={`group relative p-5 rounded-xl border border-border/50 bg-card/40 hover:bg-card hover:border-primary/30 hover:shadow-md transition-all duration-400 animate-fade-up ${service.bentoSpan ?? ""}`}
               style={{ animationDelay: `${index * 0.03}s` }}
             >
               <div className="flex items-start gap-4">
@@ -51,7 +34,7 @@ export function BentoServices() {
                     {service.title}
                   </h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    {service.description}
+                    {service.shortDescription}
                   </p>
                 </div>
                 <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-0.5" />

@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://alresia.com/sitemap.xml
+Sitemap: https://alresia.tech/sitemap.xml

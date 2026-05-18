@@ -11,10 +11,30 @@ import {
   Calendar,
   Building2,
   Layers,
+  Github,
+  Globe,
+  Eye,
+  Figma,
+  FileText,
+  Link as LinkIcon,
 } from "lucide-react";
 import { getProjectById, projects } from "@/data/projects";
 import { Seo } from "@/components/seo/Seo";
 import { siteConfig } from "@/lib/site";
+
+function linkIcon(kind?: string) {
+  switch ((kind || "").toLowerCase()) {
+    case "github": return Github;
+    case "website":
+    case "live": return Globe;
+    case "preview":
+    case "demo": return Eye;
+    case "figma": return Figma;
+    case "docs":
+    case "article": return FileText;
+    default: return LinkIcon;
+  }
+}
 
 export default function ProjectDetails() {
   const { id } = useParams();
@@ -174,6 +194,42 @@ export default function ProjectDetails() {
                     </span>
                   ))}
                 </div>
+
+                {project.links && project.links.length > 0 && (
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.links.map((l) => {
+                      const Icon = linkIcon(l.kind);
+                      return (
+                        <a
+                          key={l.url}
+                          href={l.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-border/60 bg-card hover:border-primary/40 hover:text-primary transition-colors"
+                        >
+                          <Icon className="w-4 h-4" />
+                          {l.label}
+                          <ExternalLink className="w-3 h-3 opacity-60" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {project.meta && Object.keys(project.meta).length > 0 && (
+                  <dl className="grid grid-cols-2 gap-x-6 gap-y-3 pt-4 border-t border-border/40">
+                    {Object.entries(project.meta).map(([k, v]) => (
+                      <div key={k}>
+                        <dt className="text-[11px] uppercase tracking-widest text-muted-foreground">
+                          {k}
+                        </dt>
+                        <dd className="text-sm font-medium text-foreground mt-0.5">
+                          {String(v)}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
               </div>
 
               <div className="relative group">

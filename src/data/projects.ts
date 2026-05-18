@@ -1,3 +1,16 @@
+export interface ProjectMetaItem {
+  /** Short label shown in the UI, e.g. "GitHub", "Live site", "Case study". */
+  label: string;
+  /** Destination URL. */
+  url: string;
+  /**
+   * Optional kind hint for icon / styling.
+   * Common: github, website, preview, demo, figma, dribbble, behance,
+   * appstore, playstore, video, docs, article.
+   */
+  kind?: string;
+}
+
 export interface Project {
   id: number;
   title: string;
@@ -17,6 +30,18 @@ export interface Project {
     author: string;
     role: string;
   };
+  /**
+   * Quick-access links shown on the project card / details page.
+   * Add as many as you like — GitHub repo, live site, preview deploy,
+   * App Store / Play Store, Figma file, case-study PDF, etc.
+   */
+  links?: ProjectMetaItem[];
+  /**
+   * Free-form metadata. Use for anything that doesn't fit the typed
+   * fields above: tech stack details, role, team size, duration,
+   * awards, partners, etc. Rendered as a key/value list when present.
+   */
+  meta?: Record<string, string | number | boolean>;
 }
 
 export const projects: Project[] = [
@@ -52,6 +77,17 @@ export const projects: Project[] = [
         "Alresia delivered beyond our expectations. The dashboard transformed how our teams interact with financial data.",
       author: "Sarah Chen",
       role: "VP of Technology",
+    },
+    links: [
+      { label: "GitHub", url: "https://github.com/alresia/fintech-dashboard", kind: "github" },
+      { label: "Live site", url: "https://fintech.example.com", kind: "website" },
+      { label: "Preview", url: "https://preview.fintech.example.com", kind: "preview" },
+    ],
+    meta: {
+      Role: "Lead engineering & design",
+      Team: "6 engineers, 2 designers",
+      Duration: "9 months",
+      Stack: "React, Node, PostgreSQL, AWS",
     },
   },
   {
